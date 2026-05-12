@@ -67,6 +67,20 @@ Group recurring agent failures into actionable patterns.
 
 ---
 
+## Runtime Failure Taxonomy
+
+| Category | Description |
+|---|---|
+| Tool Misuse | Wrong tool selection or invalid parameters |
+| Planner Failure | Recursive loops or route drift |
+| Memory Corruption | Stale or polluted memory state |
+| Context Drift | Long context behavior deviation |
+| Hallucinated Action | Fake execution claims |
+| Prompt Injection | External instruction override |
+| Tool Poisoning | Malicious tool output contamination |
+
+---
+
 ## Architecture
 
 ```text
@@ -102,6 +116,55 @@ Feedback Loop
 
 ---
 
+## Repository Structure
+
+```text
+agent-runtime-quality/
+
+├── runtime/
+│   ├── tracer/
+│   ├── replay/
+│   ├── memory/
+│   ├── tool_calls/
+│   └── planner/
+│
+├── evals/
+│   ├── datasets/
+│   ├── benchmarks/
+│   ├── adversarial/
+│   └── poisoning/
+│
+├── taxonomy/
+│   ├── hallucination/
+│   ├── memory_corruption/
+│   ├── planner_loop/
+│   └── tool_misuse/
+│
+├── observability/
+│   ├── traces/
+│   ├── metrics/
+│   └── runtime_events/
+│
+├── examples/
+│
+└── docs/
+```
+
+---
+
+## Reliability Benchmarks
+
+Evaluate:
+
+- Long Context Stability
+- Tool Routing Accuracy
+- Planner Stability
+- Memory Persistence
+- Poisoning Resistance
+- Runtime Recovery Success Rate
+
+---
+
 ## Why This Project Exists
 
 Most teams can make an Agent run.
@@ -128,6 +191,8 @@ It is runtime reliability.
 - runtime event schema
 - replay prototype
 - basic eval loop
+- runtime trace engine
+- failure taxonomy
 
 ### Phase 2
 
@@ -135,6 +200,8 @@ It is runtime reliability.
 - regression detection
 - observability dashboard
 - session continuity experiments
+- poisoning eval
+- long-context stability benchmark
 
 ### Phase 3
 
@@ -142,6 +209,7 @@ It is runtime reliability.
 - online adaptive eval
 - reliability scoring
 - enterprise runtime governance
+- runtime safety analysis
 
 ---
 
@@ -158,6 +226,18 @@ This project is:
 ```text
 Infrastructure for AI Agent Runtime Quality
 ```
+
+---
+
+## Current Focus
+
+Current development priorities:
+
+1. Runtime Trace Collection
+2. Failure Replay
+3. Runtime Failure Taxonomy
+4. Poisoning Resistance Evaluation
+5. Runtime Observability
 
 ---
 
