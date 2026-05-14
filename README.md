@@ -1,118 +1,77 @@
 # Agent Runtime Quality
 
-> Runtime Quality Infrastructure for Long-running AI Agents
+> Runtime continuity and interruption recovery infrastructure for AI agents.
 
-Agent Runtime Quality is an open infrastructure project focused on reliability, observability, replay and evaluation for AI Agents.
+Agent Runtime Quality is an open infrastructure project focused on:
 
-Most AI tooling today focuses on prompts, benchmarks or offline evaluation.
+- runtime continuity
+- interruption recovery
+- resumable execution
+- runtime observability
+- replay and eval
+- recovery reliability
 
-But production AI Agents fail for different reasons:
+Most AI tooling today focuses on prompts or offline benchmarks.
 
-- long-running task interruption
-- memory drift
+But long-running agents fail because of:
+
+- context collapse
+- session interruption
+- runtime drift
 - unstable tool orchestration
-- non-deterministic retry behavior
-- session continuity loss
-- hallucinated actions
-- runtime state corruption
-- missing online eval feedback loop
+- retry loops
+- memory corruption
+- lost working state
 
-This project explores a different direction:
+This repository explores a different direction:
 
 ```text
-Runtime → Trace → Replay → Eval → Feedback Loop
+Runtime Events → Checkpoint → Recovery → Replay → Eval
 ```
 
-Instead of treating evaluation as a one-time benchmark, Agent Runtime Quality treats quality as a continuous runtime system.
+The goal is not chat memory.
+
+The goal is recoverable working state.
 
 ---
 
 ## Vision
 
-AI Agents will eventually behave more like distributed systems than chatbots.
+AI agents will eventually behave more like distributed systems than chatbots.
 
 That means:
 
 - runtime reliability matters
-- observability matters
+- interruption recovery matters
 - replayability matters
-- recovery matters
-- online evaluation matters
+- observability matters
+- online eval matters
 
-This project aims to build the missing quality infrastructure layer for AI Agents.
+This project aims to build the missing runtime reliability layer for AI agents.
 
 ---
 
 ## Core Concepts
 
-### Runtime Observability
-
-Capture trajectories, tool calls, memory mutations and execution states.
-
-### Replay Engine
-
-Replay failed agent trajectories for debugging and regression detection.
-
-### Eval Loop
-
-Automatically generate evaluation cases from runtime failures.
-
-### Session Continuity
+### Runtime Continuity
 
 Recover interrupted long-running tasks.
 
-### Failure Clustering
+### Structured Checkpoint
 
-Group recurring agent failures into actionable patterns.
+Persist recoverable runtime state.
 
----
+### Runtime Event Stream
 
-## Runtime Failure Taxonomy
+Capture execution events for replay and debugging.
 
-| Category | Description |
-|---|---|
-| Tool Misuse | Wrong tool selection or invalid parameters |
-| Planner Failure | Recursive loops or route drift |
-| Memory Corruption | Stale or polluted memory state |
-| Context Drift | Long context behavior deviation |
-| Hallucinated Action | Fake execution claims |
-| Prompt Injection | External instruction override |
-| Tool Poisoning | Malicious tool output contamination |
+### Replay Engine
 
----
+Replay failed trajectories for debugging and regression detection.
 
-## Architecture
+### Runtime Eval
 
-```text
-Agent
-  ↓
-Runtime Layer
-  - state management
-  - memory
-  - tool orchestration
-  - retry / recovery
-
-  ↓
-
-Trace Stream
-  ↓
-
-Replay Engine
-  ↓
-
-Eval Engine
-  - trajectory eval
-  - tool correctness
-  - policy validation
-  - goal completion
-
-  ↓
-
-Feedback Loop
-  - auto-generated evals
-  - regression detection
-  - failure clustering
-```
+Evaluate recovery quality and continuity stability.
 
 ---
 
@@ -120,111 +79,26 @@ Feedback Loop
 
 ```text
 agent-runtime-quality/
-
-├── runtime/
-│   ├── tracer/
-│   ├── replay/
-│   ├── memory/
-│   ├── tool_calls/
-│   └── planner/
+├── docs/
+│   ├── runtime-continuity/
+│   ├── checkpoint/
+│   ├── runtime-events/
+│   ├── runtime-eval/
+│   ├── engineering-notes/
+│   └── roadmap/
 │
-├── evals/
-│   ├── datasets/
-│   ├── benchmarks/
-│   ├── adversarial/
-│   └── poisoning/
-│
-├── taxonomy/
-│   ├── hallucination/
-│   ├── memory_corruption/
-│   ├── planner_loop/
-│   └── tool_misuse/
-│
-├── observability/
-│   ├── traces/
-│   ├── metrics/
-│   └── runtime_events/
+├── research/
+│   ├── temporal-notes.md
+│   ├── durable-execution.md
+│   ├── event-sourcing.md
+│   └── actor-model.md
 │
 ├── examples/
+│   ├── sigterm-checkpoint-demo/
+│   ├── context-recovery-demo/
+│   └── replay-demo/
 │
-└── docs/
-```
-
----
-
-## Reliability Benchmarks
-
-Evaluate:
-
-- Long Context Stability
-- Tool Routing Accuracy
-- Planner Stability
-- Memory Persistence
-- Poisoning Resistance
-- Runtime Recovery Success Rate
-
----
-
-## Why This Project Exists
-
-Most teams can make an Agent run.
-
-Very few teams can explain:
-
-- why it failed
-- whether it will fail again
-- how to replay it
-- how to recover it
-- how to continuously improve it
-
-The next stage of AI engineering is not just model capability.
-
-It is runtime reliability.
-
----
-
-## Roadmap
-
-### Phase 1
-
-- trajectory collection
-- runtime event schema
-- replay prototype
-- basic eval loop
-- runtime trace engine
-- failure taxonomy
-
-### Phase 2
-
-- failure clustering
-- regression detection
-- observability dashboard
-- session continuity experiments
-- poisoning eval
-- long-context stability benchmark
-
-### Phase 3
-
-- multi-agent runtime quality
-- online adaptive eval
-- reliability scoring
-- enterprise runtime governance
-- runtime safety analysis
-
----
-
-## Positioning
-
-This project is NOT:
-
-- another prompt playground
-- another benchmark leaderboard
-- another AI wrapper
-
-This project is:
-
-```text
-Infrastructure for AI Agent Runtime Quality
+└── drafts/
 ```
 
 ---
@@ -233,11 +107,54 @@ Infrastructure for AI Agent Runtime Quality
 
 Current development priorities:
 
-1. Runtime Trace Collection
-2. Failure Replay
-3. Runtime Failure Taxonomy
-4. Poisoning Resistance Evaluation
-5. Runtime Observability
+1. Runtime continuity
+2. Structured checkpoint
+3. SIGTERM recovery
+4. Runtime event stream
+5. Context collapse recovery
+6. Recovery eval metrics
+
+---
+
+## Roadmap
+
+### Phase 1
+
+- JSONL runtime event log
+- interruption checkpoint
+- SIGTERM recovery
+- restore strategy
+- context pressure detection
+
+### Phase 2
+
+- runtime observability
+- continuity metrics
+- recovery score
+- interruption benchmark
+
+### Phase 3
+
+- deterministic replay
+- resumable execution
+- runtime graph restore
+- replay visualization
+
+---
+
+## Positioning
+
+This project is NOT:
+
+- another prompt playground
+- another chatbot wrapper
+- another memory database
+
+This project is:
+
+```text
+Infrastructure for AI Agent Runtime Reliability
+```
 
 ---
 
@@ -245,4 +162,4 @@ Current development priorities:
 
 Early exploration.
 
-The architecture and direction are evolving together with the Agent ecosystem.
+The architecture and direction are evolving together with the agent ecosystem.
