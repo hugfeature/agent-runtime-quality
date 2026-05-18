@@ -1,33 +1,56 @@
 # Agent Runtime Quality
 
-> Runtime continuity and interruption recovery infrastructure for AI agents.
+> Infrastructure for AI Agent Runtime Reliability, Continuity, and Eval.
 
-Agent Runtime Quality is an open infrastructure project focused on:
+Agent Runtime Quality explores a missing layer in the current AI ecosystem:
 
-- runtime continuity
-- interruption recovery
-- resumable execution
-- runtime observability
-- replay and eval
-- recovery reliability
+```text
+Agent Runtime State → Checkpoint → Recovery → Replay → Eval
+```
 
-Most AI tooling today focuses on prompts or offline benchmarks.
+Most AI tooling today focuses on:
 
-But long-running agents fail because of:
+- prompting
+- orchestration
+- offline benchmarks
+- memory storage
+
+But long-running agents fail somewhere else.
+
+They fail during runtime.
+
+---
+
+## The Problem
+
+Long-running AI agents frequently break because of:
 
 - context collapse
 - session interruption
-- runtime drift
-- unstable tool orchestration
 - retry loops
-- memory corruption
-- lost working state
+- unstable tool orchestration
+- corrupted runtime state
+- lost intent continuity
+- runtime drift
+- goal-state misalignment
 
-This repository explores a different direction:
+This repository focuses on runtime continuity failures instead of prompt quality.
+
+---
+
+## Drift Definition
 
 ```text
-Runtime Events → Checkpoint → Recovery → Replay → Eval
+Drift = Goal Alignment Failure
 ```
+
+More specifically:
+
+```text
+Drift is a runtime continuity failure caused by goal-state misalignment.
+```
+
+This is the core direction of the project.
 
 The goal is not chat memory.
 
@@ -43,27 +66,28 @@ That means:
 
 - runtime reliability matters
 - interruption recovery matters
-- replayability matters
 - observability matters
+- replayability matters
 - online eval matters
+- continuity stability matters
 
-This project aims to build the missing runtime reliability layer for AI agents.
+This project aims to explore the runtime reliability layer for AI agents.
 
 ---
 
-## Core Concepts
+## Core Areas
 
 ### Runtime Continuity
 
-Recover interrupted long-running tasks.
+Recover interrupted long-running execution.
+
+### Runtime Observability
+
+Capture runtime events, transitions, failures, and recovery paths.
 
 ### Structured Checkpoint
 
-Persist recoverable runtime state.
-
-### Runtime Event Stream
-
-Capture execution events for replay and debugging.
+Persist recoverable runtime state instead of raw conversation history.
 
 ### Replay Engine
 
@@ -71,7 +95,30 @@ Replay failed trajectories for debugging and regression detection.
 
 ### Runtime Eval
 
-Evaluate recovery quality and continuity stability.
+Measure recovery quality, continuity stability, and drift behavior.
+
+### Drift Detection
+
+Detect runtime divergence between current execution state and original goal state.
+
+---
+
+## Positioning
+
+This repository is positioned around:
+
+- Agent Runtime
+- AI Reliability
+- Runtime Eval
+- Runtime Continuity
+- Runtime Observability
+
+This project is NOT:
+
+- another chatbot wrapper
+- another prompt playground
+- another vector memory database
+- another generic agent framework
 
 ---
 
@@ -81,16 +128,16 @@ Evaluate recovery quality and continuity stability.
 agent-runtime-quality/
 ├── docs/
 │   ├── runtime-continuity/
-│   ├── checkpoint/
-│   ├── runtime-events/
+│   ├── runtime-observability/
+│   ├── drift-detection/
 │   ├── runtime-eval/
 │   ├── engineering-notes/
 │   └── roadmap/
 │
 ├── research/
-│   ├── temporal-notes.md
 │   ├── durable-execution.md
 │   ├── event-sourcing.md
+│   ├── runtime-recovery.md
 │   └── actor-model.md
 │
 ├── examples/
@@ -105,56 +152,31 @@ agent-runtime-quality/
 
 ## Current Focus
 
-Current development priorities:
+Current priorities:
 
 1. Runtime continuity
-2. Structured checkpoint
-3. SIGTERM recovery
-4. Runtime event stream
-5. Context collapse recovery
+2. Drift detection
+3. Structured checkpoint
+4. SIGTERM recovery
+5. Runtime event stream
 6. Recovery eval metrics
+7. Replay and trajectory debugging
 
 ---
 
-## Roadmap
+## Ecosystem References
 
-### Phase 1
+Relevant adjacent systems:
 
-- JSONL runtime event log
-- interruption checkpoint
-- SIGTERM recovery
-- restore strategy
-- context pressure detection
+- LangSmith
+- OpenTelemetry
+- Arize Phoenix
+- OpenAI Evals
+- Temporal
 
-### Phase 2
+The goal is not to replicate them.
 
-- runtime observability
-- continuity metrics
-- recovery score
-- interruption benchmark
-
-### Phase 3
-
-- deterministic replay
-- resumable execution
-- runtime graph restore
-- replay visualization
-
----
-
-## Positioning
-
-This project is NOT:
-
-- another prompt playground
-- another chatbot wrapper
-- another memory database
-
-This project is:
-
-```text
-Infrastructure for AI Agent Runtime Reliability
-```
+The goal is to explore runtime continuity and drift recovery as a dedicated reliability problem.
 
 ---
 
@@ -162,4 +184,4 @@ Infrastructure for AI Agent Runtime Reliability
 
 Early exploration.
 
-The architecture and direction are evolving together with the agent ecosystem.
+The architecture, terminology, and runtime model are evolving together with the agent ecosystem.
