@@ -103,6 +103,62 @@ Detect runtime divergence between current execution state and original goal stat
 
 ---
 
+## Drift Research Progress
+
+A dedicated drift detection prototype is now running in a separate repository:
+
+- Drift timeline visualization
+- Goal lifecycle tracking
+- Runtime narrative reconstruction
+- Human takeover recommendation engine
+- Claude Code integration
+- Eval benchmark pipeline
+
+Repository:
+
+https://github.com/hugfeature/drift
+
+Current direction has shifted from:
+
+```text
+"Can drift be detected?"
+```
+
+toward:
+
+```text
+"Can real autonomous agent sessions be evaluated and governed during runtime?"
+```
+
+One important lesson from the prototype:
+
+The hardest problem is not scoring.
+
+The hardest problem is collecting real runtime drift sessions with believable engineering context.
+
+Synthetic traces are easy.
+
+Real agent failure trajectories are not.
+
+---
+
+## Current Runtime Drift Taxonomy
+
+Observed drift patterns currently being tracked:
+
+| Drift Type | Description |
+|---|---|
+| scope_expansion | Agent silently enlarges the task scope |
+| goal_forgetting | Original goal disappears from execution focus |
+| cleanup_spiral | Agent enters endless cleanup/refactor behavior |
+| dependency_cascade | Dependency upgrades trigger unrelated repair chains |
+| exploratory_loop | Agent performs unrelated exploration without convergence |
+| autonomous_refactor | Large refactor initiated without authorization |
+
+This taxonomy is still evolving together with real runtime sessions.
+
+---
+
 ## Positioning
 
 This repository is positioned around:
@@ -154,13 +210,17 @@ agent-runtime-quality/
 
 Current priorities:
 
-1. Runtime continuity
-2. Drift detection
-3. Structured checkpoint
-4. SIGTERM recovery
-5. Runtime event stream
-6. Recovery eval metrics
+1. Real Claude Code runtime session collection
+2. Runtime drift evaluation fixtures
+3. Drift narrative reconstruction
+4. Goal lifecycle governance
+5. Runtime event stream analysis
+6. Human takeover recommendation quality
 7. Replay and trajectory debugging
+
+The focus is no longer adding features blindly.
+
+The focus is building a believable runtime drift dataset.
 
 ---
 
@@ -182,6 +242,15 @@ The goal is to explore runtime continuity and drift recovery as a dedicated reli
 
 ## Status
 
-Early exploration.
+Active research and engineering exploration.
+
+Core runtime drift pipeline is operational.
+
+Current bottleneck:
+
+- real autonomous runtime sessions
+- eval-quality drift fixtures
+- runtime governance signals
+- human takeover thresholds
 
 The architecture, terminology, and runtime model are evolving together with the agent ecosystem.
