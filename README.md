@@ -1,44 +1,70 @@
 # Agent Runtime Quality
 
-> Infrastructure for AI Agent Runtime Reliability, Continuity, and Eval.
+> AI agents behave more like distributed systems than chatbots.
 
-Agent Runtime Quality explores a missing layer in the current AI ecosystem:
+Infrastructure research for:
 
-```text
-Agent Runtime State → Checkpoint → Recovery → Replay → Eval
-```
+- runtime continuity
+- runtime reliability
+- replayability
+- recoverability
+- runtime observability
+- multi-agent coordination
+- eval-driven governance
 
-Most AI tooling today focuses on:
+The focus is not model capability.
+
+The focus is:
+
+> Can AI agents run reliably for hours, days, or weeks in real-world environments?
+
+---
+
+## The Missing Layer
+
+Most of the current AI ecosystem focuses on:
 
 - prompting
 - orchestration
-- offline benchmarks
-- memory storage
+- model capability
+- offline eval
+- memory retrieval
 
-But long-running agents fail somewhere else.
+But production agents fail somewhere else.
 
 They fail during runtime.
 
----
-
-## The Problem
-
-Long-running AI agents frequently break because of:
+Typical failures:
 
 - context collapse
-- session interruption
-- retry loops
-- unstable tool orchestration
-- corrupted runtime state
-- lost intent continuity
-- runtime drift
-- goal-state misalignment
+- retry storms
+- goal drift
+- state corruption
+- replay mismatch
+- memory poisoning
+- recovery inconsistency
+- long-session instability
+- multi-agent divergence
 
-This repository focuses on runtime continuity failures instead of prompt quality.
+This repository studies that missing layer.
+
+```text
+LLM Capability
+    ↓
+Agent Workflow
+    ↓
+Multi-Agent Coordination
+    ↓
+Runtime State
+    ↓
+Continuity / Recovery / Replay
+    ↓
+Reliability / Observability / Eval
+```
 
 ---
 
-## Drift Definition
+## Core Direction
 
 ```text
 Drift = Goal Alignment Failure
@@ -47,35 +73,54 @@ Drift = Goal Alignment Failure
 More specifically:
 
 ```text
-Drift is a runtime continuity failure caused by goal-state misalignment.
+Drift is a runtime continuity failure caused by goal-state divergence.
 ```
-
-This is the core direction of the project.
 
 The goal is not chat memory.
 
-The goal is recoverable working state.
+The goal is:
+
+> Recoverable working state.
 
 ---
 
-## Vision
+## Why This Matters
 
-AI agents will eventually behave more like distributed systems than chatbots.
+A demo agent and a production agent are fundamentally different systems.
 
-That means:
+A demo agent:
 
-- runtime reliability matters
-- interruption recovery matters
-- observability matters
-- replayability matters
-- online eval matters
-- continuity stability matters
+- runs for minutes
+- executes happy paths
+- tolerates hidden instability
 
-This project aims to explore the runtime reliability layer for AI agents.
+A production agent:
+
+- runs for hours or days
+- survives interruption
+- coordinates across tools and agents
+- maintains continuity under changing environments
+- supports replay and debugging
+- requires observability and governance
+
+The hardest problems are no longer:
+
+- text generation
+- tool calling
+- prompt engineering
+
+The hardest problems are becoming:
+
+- runtime durability
+- continuity semantics
+- replayability
+- recovery guarantees
+- state consistency
+- runtime eval
 
 ---
 
-## Core Areas
+## Runtime Research Areas
 
 ### Runtime Continuity
 
@@ -91,90 +136,38 @@ Persist recoverable runtime state instead of raw conversation history.
 
 ### Replay Engine
 
-Replay failed trajectories for debugging and regression detection.
+Replay failed trajectories for debugging and regression analysis.
 
 ### Runtime Eval
 
-Measure recovery quality, continuity stability, and drift behavior.
+Measure continuity stability, recovery quality, and runtime drift behavior.
 
 ### Drift Detection
 
-Detect runtime divergence between current execution state and original goal state.
+Detect divergence between current execution state and original goal state.
+
+### Multi-Agent Coordination
+
+Study state consistency and orchestration failure patterns across agent swarms.
 
 ---
 
-## Drift Research Progress
+## Runtime Failure Taxonomy
 
-A dedicated drift detection prototype is now running in a separate repository:
+Observed runtime failure patterns currently being tracked:
 
-- Drift timeline visualization
-- Goal lifecycle tracking
-- Runtime narrative reconstruction
-- Human takeover recommendation engine
-- Claude Code integration
-- Eval benchmark pipeline
-
-Repository:
-
-https://github.com/hugfeature/drift
-
-Current direction has shifted from:
-
-```text
-"Can drift be detected?"
-```
-
-toward:
-
-```text
-"Can real autonomous agent sessions be evaluated and governed during runtime?"
-```
-
-One important lesson from the prototype:
-
-The hardest problem is not scoring.
-
-The hardest problem is collecting real runtime drift sessions with believable engineering context.
-
-Synthetic traces are easy.
-
-Real agent failure trajectories are not.
-
----
-
-## Current Runtime Drift Taxonomy
-
-Observed drift patterns currently being tracked:
-
-| Drift Type | Description |
+| Failure Type | Description |
 |---|---|
-| scope_expansion | Agent silently enlarges the task scope |
+| scope_expansion | Agent silently enlarges task scope |
 | goal_forgetting | Original goal disappears from execution focus |
-| cleanup_spiral | Agent enters endless cleanup/refactor behavior |
+| cleanup_spiral | Endless cleanup/refactor behavior |
 | dependency_cascade | Dependency upgrades trigger unrelated repair chains |
-| exploratory_loop | Agent performs unrelated exploration without convergence |
+| exploratory_loop | Exploration without convergence |
 | autonomous_refactor | Large refactor initiated without authorization |
+| replay_mismatch | Replayed execution diverges from original trajectory |
+| hallucinated_state | Agent invents nonexistent runtime state |
 
-This taxonomy is still evolving together with real runtime sessions.
-
----
-
-## Positioning
-
-This repository is positioned around:
-
-- Agent Runtime
-- AI Reliability
-- Runtime Eval
-- Runtime Continuity
-- Runtime Observability
-
-This project is NOT:
-
-- another chatbot wrapper
-- another prompt playground
-- another vector memory database
-- another generic agent framework
+This taxonomy evolves together with real runtime sessions.
 
 ---
 
@@ -183,26 +176,88 @@ This project is NOT:
 ```text
 agent-runtime-quality/
 ├── docs/
-│   ├── runtime-continuity/
-│   ├── runtime-observability/
-│   ├── drift-detection/
-│   ├── runtime-eval/
+│   ├── concepts/
+│   │   ├── runtime-continuity.md
+│   │   ├── state-drift.md
+│   │   ├── replayability.md
+│   │   └── recoverability.md
+│   │
+│   ├── architecture/
+│   │   ├── runtime-event-model.md
+│   │   ├── checkpoint-design.md
+│   │   ├── recovery-pipeline.md
+│   │   └── multi-agent-coordination.md
+│   │
+│   ├── runtime-failures/
+│   │   ├── context-collapse.md
+│   │   ├── cleanup-spiral.md
+│   │   ├── dependency-cascade.md
+│   │   └── replay-mismatch.md
+│   │
 │   ├── engineering-notes/
+│   │   ├── runtime-wars-2026.md
+│   │   └── distributed-systems-for-agents.md
+│   │
+│   ├── eval/
+│   │   ├── replay-benchmark.md
+│   │   ├── drift-fixtures.md
+│   │   └── runtime-governance.md
+│   │
 │   └── roadmap/
 │
-├── research/
-│   ├── durable-execution.md
-│   ├── event-sourcing.md
-│   ├── runtime-recovery.md
-│   └── actor-model.md
-│
 ├── examples/
-│   ├── sigterm-checkpoint-demo/
-│   ├── context-recovery-demo/
-│   └── replay-demo/
-│
 └── drafts/
 ```
+
+---
+
+## Positioning
+
+This repository is positioned around:
+
+- Agent Runtime
+- Runtime Reliability
+- Runtime Continuity
+- Runtime Observability
+- Runtime Eval
+- Runtime Governance
+- Multi-Agent Runtime Systems
+
+This project is NOT:
+
+- another chatbot wrapper
+- another prompt playground
+- another vector database
+- another generic agent framework
+
+The direction is closer to:
+
+> Runtime systems research for autonomous AI agents.
+
+---
+
+## Drift Research Prototype
+
+A dedicated runtime drift prototype is being developed separately:
+
+Repository:
+
+https://github.com/hugfeature/drift
+
+Current capabilities:
+
+- drift timeline visualization
+- runtime narrative reconstruction
+- goal lifecycle tracking
+- replay-oriented debugging
+- human takeover recommendation
+- runtime eval fixtures
+
+One important lesson from the prototype:
+
+> Synthetic traces are easy.
+>
+> Real autonomous runtime failures are not.
 
 ---
 
@@ -210,47 +265,59 @@ agent-runtime-quality/
 
 Current priorities:
 
-1. Real Claude Code runtime session collection
+1. Real long-running runtime session collection
 2. Runtime drift evaluation fixtures
-3. Drift narrative reconstruction
-4. Goal lifecycle governance
-5. Runtime event stream analysis
+3. Replay and trajectory debugging
+4. Multi-agent failure analysis
+5. Runtime governance signals
 6. Human takeover recommendation quality
-7. Replay and trajectory debugging
+7. Runtime durability semantics
 
-The focus is no longer adding features blindly.
+The focus is no longer building agent demos.
 
-The focus is building a believable runtime drift dataset.
+The focus is building:
+
+> Reliable runtime infrastructure for autonomous agents.
 
 ---
 
 ## Ecosystem References
 
-Relevant adjacent systems:
+Adjacent systems and inspirations:
 
 - LangSmith
 - OpenTelemetry
 - Arize Phoenix
 - OpenAI Evals
 - Temporal
+- Distributed systems observability tooling
 
 The goal is not to replicate them.
 
-The goal is to explore runtime continuity and drift recovery as a dedicated reliability problem.
+The goal is to explore:
+
+- runtime continuity
+- runtime recovery
+- runtime drift
+- replayability
+- agent reliability
+
+as first-class infrastructure problems.
 
 ---
 
 ## Status
 
-Active research and engineering exploration.
+Active runtime research and engineering exploration.
 
-Core runtime drift pipeline is operational.
+Core drift analysis pipeline is operational.
 
-Current bottleneck:
+Current bottlenecks:
 
 - real autonomous runtime sessions
-- eval-quality drift fixtures
-- runtime governance signals
-- human takeover thresholds
+- believable failure trajectories
+- eval-quality runtime fixtures
+- recovery benchmarking
+- runtime governance thresholds
 
-The architecture, terminology, and runtime model are evolving together with the agent ecosystem.
+The runtime architecture, terminology, and taxonomy are evolving together with the agent ecosystem.
